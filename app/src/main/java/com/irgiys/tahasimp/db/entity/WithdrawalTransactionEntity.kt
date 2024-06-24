@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Entity(
-    tableName = "saving_transaction",
+    tableName = "withdrawal_transaction",
     foreignKeys = [ForeignKey(
         entity = SavingEntity::class,
         parentColumns = arrayOf("id"),
@@ -18,7 +18,7 @@ import java.util.Date
     )]
 )
 @Parcelize
-data class SavingTransactionEntity(
+data class WithdrawalTransactionEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,

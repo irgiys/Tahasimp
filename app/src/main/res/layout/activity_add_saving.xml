@@ -17,7 +17,7 @@
         android:text="Tujuan nabung ?" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/age"
+        android:id="@+id/edt_title"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:text="Berapa harganya ?" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/bmi"
+        android:id="@+id/edt_target"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             tools:ignore="VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +64,7 @@
         android:text="Mau nabung berapa hari ?" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/glucose_average"
+        android:id="@+id/edt_day_target"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,11 +75,12 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             tools:ignore="VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
