@@ -3,26 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.ProgressFragment">
-
-    <ProgressBar
-        android:id="@+id/pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="32dp" />
-
     <TextView
-        android:id="@+id/no_user_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:text="Belum menabung, yuk nabung"
-        android:visibility="gone" />
+        android:text="Progress fragment"
+        android:layout_gravity="center"
+        />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/pb_loading"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:paddingTop="32dp" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_users"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/saving_item" />
+<!--    <TextView-->
+<!--        android:id="@+id/no_user_found"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:text="Belum menabung, yuk nabung"-->
+<!--        android:visibility="gone" />-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_users"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:listitem="@layout/saving_item" />-->
 </FrameLayout>

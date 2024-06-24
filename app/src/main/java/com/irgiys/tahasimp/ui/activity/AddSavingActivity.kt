@@ -14,7 +14,6 @@ class AddSavingActivity : AppCompatActivity() {
     private val binding get() = _activityAddSavingBinding!!
     private var saving: SavingEntity? = null
     private lateinit var savingViewModel: SavingViewModel
-//    private val savingViewModel: SavingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +34,7 @@ class AddSavingActivity : AppCompatActivity() {
                     dayTarget.isEmpty() -> edtDayTarget.error = "Kolom tidak boleh kosong"
                     else -> {
                         saving.let{
+
                             saving?.title = title
                             saving?.target = target.toLong()
                             saving?.dayTarget = dayTarget.toInt()
