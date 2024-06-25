@@ -29,15 +29,16 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/tv_total_saving"
+                android:id="@+id/tv_target_saving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="Rp25.000.000"
-                android:textSize="18sp" />
+                android:textStyle="bold"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_saving_day"
+                android:id="@+id/tv_daily_saving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -46,12 +47,12 @@
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_marginVertical="10dp"
                 />
 
             <TextView
-                android:id="@+id/tv_estimasi"
+                android:id="@+id/tv_day_target"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"

@@ -17,6 +17,7 @@ import java.util.Date
         onDelete = ForeignKey.CASCADE
     )]
 )
+
 @Parcelize
 data class WithdrawalTransactionEntity(
     @PrimaryKey(autoGenerate = true)

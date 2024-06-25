@@ -20,10 +20,16 @@ data class SavingEntity(
     @ColumnInfo(name = "target")
     var target: Long? = null,
 
+    @ColumnInfo(name = "daily_target")
+    var dailyTarget: Long? = null,
+
     @ColumnInfo(name = "day_target")
     var dayTarget: Int? = null,
 
     @ColumnInfo(name = "date_created")
-    var dateCreated: Date = Date()
+    var dateCreated: Date = Date(),
+
+    @ColumnInfo(name = "total_saving")
+    var totalSaving: Long = 0
 
 ) : Parcelable

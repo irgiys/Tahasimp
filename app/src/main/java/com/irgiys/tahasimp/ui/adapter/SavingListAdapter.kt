@@ -1,5 +1,6 @@
 package com.irgiys.tahasimp.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.irgiys.tahasimp.databinding.SavingItemBinding
 import com.irgiys.tahasimp.db.entity.SavingEntity
 import com.irgiys.tahasimp.utils.SavingDiffCallback
+import com.irgiys.tahasimp.utils.formatCurrency
 
 
 class SavingListAdapter : RecyclerView.Adapter<SavingListAdapter.SavingViewHolder>() {
@@ -47,10 +49,13 @@ class SavingListAdapter : RecyclerView.Adapter<SavingListAdapter.SavingViewHolde
 
     inner class SavingViewHolder(private val binding: SavingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(saving: SavingEntity) {
             with(binding) {
                 tvTitle.text = saving.title
-                tvTotalSaving.text = saving.target.toString()
+                tvTargetSaving.text = formatCurrency(saving.target)
+                tvDailySaving.text = "${formatCurrency(saving.dailyTarget)} per hari"
+                tvDayTarget.text = "Estimasi ${saving.dayTarget.toString()} hari"
 //                tvItemDescription.text = saving.description
 //                cvItemNote.setOnClickListener {
 //                    val intent = Intent(it.context, NoteAddUpdateActivity::class.java

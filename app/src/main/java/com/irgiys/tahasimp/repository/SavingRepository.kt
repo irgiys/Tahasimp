@@ -26,6 +26,9 @@ class SavingRepository(application: Application) {
     fun getTransactionsForSaving(savingId: Int): Flow<List<SavingTransactionEntity>> =
         savingDao.getTransactionsForSaving(savingId)
 
+    fun getWithdrawalsForSaving(savingId: Int): Flow<List<WithdrawalTransactionEntity>> =
+        savingDao.getWithdrawalsForSaving(savingId)
+
     suspend fun insertSaving(savingEntity: SavingEntity) {
         savingDao.insertSaving(savingEntity)
     }
@@ -38,11 +41,11 @@ class SavingRepository(application: Application) {
         savingDao.deleteSaving(savingEntity)
     }
 
-    suspend fun insertSavingTransaction(transactionEntity: SavingTransactionEntity) {
-        savingDao.insertSavingTransaction(transactionEntity)
+    suspend fun insertTransactionAndUpdateTotalSaving(transactionEntity: SavingTransactionEntity) {
+        savingDao.insertTransactionAndUpdateTotalSaving(transactionEntity)
     }
 
-    suspend fun insertWithdrawalTransaction(transactionEntity: WithdrawalTransactionEntity) {
-        savingDao.insertWithdrawalTransaction(transactionEntity)
+    suspend fun insertWithdrawalAndUpdateTotalSaving(withdrawalEntity: WithdrawalTransactionEntity) {
+        savingDao.insertWithdrawalAndUpdateTotalSaving(withdrawalEntity)
     }
 }

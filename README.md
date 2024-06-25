@@ -2,7 +2,9 @@
 Tabungan Harian Simpel 📒
 
 ## TODO
-[x] Insert Saving data
-[] Show saving list 
-[] Show detail saving
-[] Update Saving Transaction
+- [x] Insert Saving data
+- [x] Show all savings
+- [] Show detail saving
+- [] Delete saving data
+- [] Show saving Transaction
+- [] Update Saving Transaction

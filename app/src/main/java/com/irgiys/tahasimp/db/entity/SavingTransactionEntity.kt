@@ -30,5 +30,6 @@ data class SavingTransactionEntity(
     var date: Date = Date(),
 
     @ColumnInfo(name = "amount")
-    var amount: Long
+    var amount: Long,
+
 ) : Parcelable

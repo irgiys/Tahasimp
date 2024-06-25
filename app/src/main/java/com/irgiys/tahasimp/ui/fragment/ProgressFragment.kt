@@ -7,37 +7,42 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.irgiys.tahasimp.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.irgiys.tahasimp.databinding.FragmentProgressBinding
 import com.irgiys.tahasimp.ui.adapter.SavingListAdapter
 import com.irgiys.tahasimp.utils.ViewModelFactory
 import com.irgiys.tahasimp.viewmodel.SavingViewModel
 
 
 class ProgressFragment : Fragment() {
+    private var _binding: FragmentProgressBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var savingViewModel: SavingViewModel
     private lateinit var adapter: SavingListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_progress, container, false)
+        _binding = FragmentProgressBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         savingViewModel = obtainViewModel(this)
         adapter = SavingListAdapter()
-
+        binding.rvSavings.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSavings.setHasFixedSize(true)
+        binding.rvSavings.adapter = adapter
         savingViewModel.allSavings.observe(viewLifecycleOwner, Observer { savings ->
             // Perbarui UI dengan daftar tabungan
-            if(savings!= null){
-            adapter.setListSaving(savings)
-
+            if (savings != null) {
+                adapter.setListSaving(savings)
             }
         })
-
 
 
     }
