@@ -1,50 +1,26 @@
 package com.irgiys.tahasimp.ui.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.irgiys.tahasimp.databinding.SavingItemBinding
 import com.irgiys.tahasimp.db.entity.SavingEntity
+import com.irgiys.tahasimp.ui.activity.DetailSavingActivity
 import com.irgiys.tahasimp.utils.SavingDiffCallback
 import com.irgiys.tahasimp.utils.formatCurrency
 
+class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingViewHolder>(SavingDiffCallback()) {
 
-class SavingListAdapter : RecyclerView.Adapter<SavingListAdapter.SavingViewHolder>() {
-    private val listSaving = ArrayList<SavingEntity>()
-    fun setListSaving(listSaving: List<SavingEntity>) {
-        val diffCallback = SavingDiffCallback(
-            this.listSaving,
-            listSaving
-        )
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.listSaving.clear()
-        this.listSaving.addAll(listSaving)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup, viewType:
-        Int
-    ): SavingViewHolder {
-        val binding =
-            SavingItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent,
-                false
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavingViewHolder {
+        val binding = SavingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SavingViewHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: SavingViewHolder,
-        position: Int
-    ) {
-        holder.bind(listSaving[position])
-    }
-
-    override fun getItemCount(): Int {
-        return listSaving.size
+    override fun onBindViewHolder(holder: SavingViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     inner class SavingViewHolder(private val binding: SavingItemBinding) :
@@ -56,13 +32,11 @@ class SavingListAdapter : RecyclerView.Adapter<SavingListAdapter.SavingViewHolde
                 tvTargetSaving.text = formatCurrency(saving.target)
                 tvDailySaving.text = "${formatCurrency(saving.dailyTarget)} per hari"
                 tvDayTarget.text = "Estimasi ${saving.dayTarget.toString()} hari"
-//                tvItemDescription.text = saving.description
-//                cvItemNote.setOnClickListener {
-//                    val intent = Intent(it.context, NoteAddUpdateActivity::class.java
-//                    )
-//                    intent.putExtra(NoteAddUpdateActivity.EXTRA_NOTE, note)
-//                    it.context.startActivity(intent)
-//                }
+                cvItemSaving.setOnClickListener {
+                    val intent = Intent(it.context, DetailSavingActivity::class.java)
+                    intent.putExtra(DetailSavingActivity.EXTRA_SAVING, saving)
+                    it.context.startActivity(intent)
+                }
             }
         }
     }

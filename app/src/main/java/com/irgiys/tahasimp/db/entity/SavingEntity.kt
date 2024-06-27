@@ -29,7 +29,7 @@ data class SavingEntity(
     @ColumnInfo(name = "date_created")
     var dateCreated: Date = Date(),
 
-    @ColumnInfo(name = "total_saving")
-    var totalSaving: Long = 0
+//    @ColumnInfo(name = "total_saving")
+//    var totalSaving: Long = 0
 
 ) : Parcelable

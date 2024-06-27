@@ -33,7 +33,3 @@ class NumberTextWatcher(private val editText: EditText) : TextWatcher {
     }
 }
 
-// Usage
-//val edtTarget = findViewById<EditText>(R.id.edt_target)
-//
-//edtTarget.addTextChangedListener(NumberTextWatcher(edtTarget))

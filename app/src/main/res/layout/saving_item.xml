@@ -7,7 +7,7 @@
     android:layout_marginRight="8dp"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_item_note"
+        android:id="@+id/cv_item_saving"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"

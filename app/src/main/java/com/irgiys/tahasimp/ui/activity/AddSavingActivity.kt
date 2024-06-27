@@ -49,7 +49,7 @@ class AddSavingActivity : AppCompatActivity() {
                     else -> {
                         val targetLong = parseStringToLong(target)
                         val dayTargetInt = dayTarget.toInt()
-                        val dailySaving = (ceil(targetLong / dayTargetInt.toDouble() / 1000) * 1000).toLong()
+                        val dailySaving = (ceil(targetLong / dayTargetInt.toDouble() / 500) * 500).toLong()
                         val adjustedTarget = dailySaving * dayTargetInt
 
                         binding.cvSavingInfo.visibility = View.VISIBLE

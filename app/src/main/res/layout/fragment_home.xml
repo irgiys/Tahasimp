@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="80dp"
     tools:context=".ui.fragment.HomeFragment">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -39,12 +40,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="100dp"
         android:foregroundGravity="bottom"
         app:fabSize="normal"
         android:backgroundTint="@color/black"
         app:layout_anchor="@id/nv_saving"
         app:layout_anchorGravity="bottom|end"
+        android:layout_marginBottom="20dp"
         android:contentDescription="add"
         app:srcCompat="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

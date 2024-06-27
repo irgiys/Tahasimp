@@ -9,8 +9,3 @@ fun formatCurrency(amount: Long?): String {
     val formattedAmount = formatter.format(amount)
     return "Rp$formattedAmount"
 }
-
-// Usage
-//val amount = 2000L
-//val formattedAmount = formatCurrency(amount)
-//textView.text = formattedAmount // Setelah ini, textView akan menampilkan "Rp2.000"

@@ -34,16 +34,19 @@ class ProgressFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         savingViewModel = obtainViewModel(this)
         adapter = SavingListAdapter()
-        binding.rvSavings.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvSavings.setHasFixedSize(true)
         binding.rvSavings.adapter = adapter
+        binding.rvSavings.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvSavings.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvSavings.setHasFixedSize(true)
+//        binding.rvSavings.adapter = adapter
+//        savingViewModel.allSavings.observe(viewLifecycleOwner, Observer { savings ->
+//            if (savings != null) {
+//                adapter.setListSaving(savings)
+//            }
+//        })
         savingViewModel.allSavings.observe(viewLifecycleOwner, Observer { savings ->
-            // Perbarui UI dengan daftar tabungan
-            if (savings != null) {
-                adapter.setListSaving(savings)
-            }
+            adapter.submitList(savings)
         })
-
 
     }
 
