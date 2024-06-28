@@ -2,8 +2,12 @@ package com.irgiys.tahasimp.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +31,9 @@ class DetailSavingActivity : AppCompatActivity() {
 
     private lateinit var saving: SavingEntity
     private lateinit var savingViewModel: SavingViewModel
-
     private lateinit var adapter: HistoryListAdapter
+
+    private var currentSavings: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +42,15 @@ class DetailSavingActivity : AppCompatActivity() {
         savingViewModel = obtainViewModel(this@DetailSavingActivity)
         saving = intent.getParcelableExtra(EXTRA_SAVING)!!
 
+        // Tambahkan kode berikut
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        var isEverSaving = false
         savingViewModel.loadNetSavings(saving.id)
         savingViewModel.netSavings.observe(this, Observer { netSavings ->
             if (netSavings != null) {
+                isEverSaving = true
+                currentSavings = netSavings
                 binding.tvAccumulatedSaving.text = formatCurrency(netSavings)
                 if (netSavings < saving.target!!) {
                     val kurang = saving.target!! - netSavings
@@ -61,7 +72,11 @@ class DetailSavingActivity : AppCompatActivity() {
                 showInputDialog(true)
             }
             btnReduceSaving.setOnClickListener {
-                showInputDialog(false)
+                if (isEverSaving) {
+                    showInputDialog(false)
+                } else {
+                    Toast.makeText(this@DetailSavingActivity, "Nabung dulu baru bisa dikurangin", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         adapter = HistoryListAdapter()
@@ -85,22 +100,36 @@ class DetailSavingActivity : AppCompatActivity() {
         val title = if (isSaving) "Tambah Tabungan" else "Kurangin"
         val hint = if (isSaving) "Masukkin jumlah tabungan" else "Masukkin jumlah penarikan"
         edtSavingAmountLayout.hint = hint
+
         val dialogBuilder = AlertDialog.Builder(this)
             .setTitle(title)
             .setView(dialogView)
-            .setPositiveButton("Simpan") { _, _ ->
-                val amountStr = edtSavingAmount.text.toString()
-                if (!amountStr.isEmpty()) {
-                    val amount = parseStringToLong(amountStr)
-                    saveSaving(amount, isSaving)
-                }
-            }
+            .setPositiveButton("Simpan", null) // Set to null to override the default behavior
             .setNegativeButton("Batal") { dialog, _ ->
                 dialog.dismiss()
             }
 
         val alertDialog = dialogBuilder.create()
         alertDialog.show()
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val amountStr = edtSavingAmount.text.toString()
+            if (amountStr.isEmpty()) {
+                edtSavingAmountLayout.error = "Field ini tidak boleh kosong"
+            } else {
+                val amount = parseStringToLong(amountStr)
+                if (!isSaving && amount > currentSavings) {
+                    edtSavingAmountLayout.error =
+                        "Jumlah penarikan tidak boleh lebih besar dari tabungan"
+                } else if (amount % 500 != 0L) {
+                    edtSavingAmountLayout.error = "Inputkan nilai rupiah dengan benar"
+                } else {
+                    edtSavingAmountLayout.error = null
+                    saveSaving(amount, isSaving)
+                    alertDialog.dismiss()
+                }
+            }
+        }
     }
 
     private fun saveSaving(amount: Long, isSaving: Boolean) {
@@ -108,19 +137,64 @@ class DetailSavingActivity : AppCompatActivity() {
         val type = if (isSaving) "saving" else "withdrawal"
         val transaction = HistoryTransactionEntity(
             savingId = savingId,
-            date = Date(),
+            dateCreated = Date(),
             amount = amount,
             type = type
         )
         savingViewModel.insertTransaction(transaction)
     }
 
-    companion object {
-        const val EXTRA_SAVING = "extra_saving"
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_update -> {
+                // Tambahkan logika untuk meng-update saving data
+//                showUpdateDialog()
+                true
+            }
+            R.id.action_delete -> {
+                // Tambahkan logika untuk menghapus saving data
+                showDeleteConfirmationDialog()
+                true
+            }
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    private fun showDeleteConfirmationDialog() {
+        // Implementasikan dialog untuk konfirmasi penghapusan saving data
+        AlertDialog.Builder(this)
+            .setTitle("Delete Saving")
+            .setMessage("Yakin hapus tabungan ini?")
+            .setPositiveButton("Hapus") { _, _ ->
+                savingViewModel.deleteSaving(saving)
+                finish() // Tutup activity setelah menghapus saving
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail_saving, menu)
+        return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _activityDetailSavingBinding = null
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): SavingViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory).get(SavingViewModel::class.java)
+    }
+
+    companion object {
+        const val EXTRA_SAVING = "extra_saving"
     }
 }

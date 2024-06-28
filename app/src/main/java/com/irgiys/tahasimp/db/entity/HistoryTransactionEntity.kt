@@ -26,8 +26,8 @@ data class HistoryTransactionEntity(
     @ColumnInfo(name = "saving_id")
     var savingId: Int,
 
-    @ColumnInfo(name = "date")
-    var date: Date = Date(),
+    @ColumnInfo(name = "date_created")
+    var dateCreated: Date = Date(),
 
     @ColumnInfo(name = "amount")
     var amount: Long,

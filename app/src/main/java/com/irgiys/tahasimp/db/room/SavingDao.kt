@@ -24,13 +24,13 @@ interface SavingDao {
     @Query("SELECT * FROM saving_data WHERE id = :id")
     fun getSavingById(id: Int): Flow<SavingEntity>
 
-    @Query("SELECT * FROM saving_data")
+    @Query("SELECT * FROM saving_data ORDER BY date_created DESC")
     fun getAllSavings(): Flow<List<SavingEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: HistoryTransactionEntity)
 
-    @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date ASC")
+    @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
     fun getTransactionsBySavingId(savingId: Int): Flow<List<HistoryTransactionEntity>>
 
     @Query("SELECT SUM(amount) FROM history_transaction WHERE saving_id = :savingId AND type = 'saving'")
@@ -39,7 +39,7 @@ interface SavingDao {
     @Query("SELECT SUM(amount) FROM history_transaction WHERE saving_id = :savingId AND type = 'withdrawal'")
     fun getTotalWithdrawals(savingId: Int): Flow<Long?>
 
-    @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId")
+    @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
     fun getHistoryTransactions(savingId: Int): Flow<List<HistoryTransactionEntity>>
 
 //    @Query("SELECT * FROM saving_transaction WHERE saving_id = :savingId")

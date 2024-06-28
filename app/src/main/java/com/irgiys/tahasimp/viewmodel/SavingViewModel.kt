@@ -55,24 +55,12 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    // Mengambil semua transaksi tabungan
-//    fun getTransactionsForSaving(savingId: Int): LiveData<List<SavingTransactionEntity>> {
-//        return repository.getTransactionsForSaving(savingId).asLiveData()
-//    }
-
-
-
-    // Mengambil semua penarikan tabungan
-//    fun getWithdrawalsForSaving(savingId: Int): LiveData<List<WithdrawalTransactionEntity>> {
-//        return repository.getWithdrawalsForSaving(savingId).asLiveData()
-//    }
-
-    // Mendapatkan total dana yang terkumpul untuk tabungan tertentu
-//    fun getTotalAmountForSaving(savingId: Int): LiveData<Long> {
-//        return repository.getTotalAmountForSaving(savingId).asLiveData()
-//    }
-
-
+    // Menghapus tabungan
+    fun deleteSaving(savingEntity: SavingEntity) {
+        viewModelScope.launch {
+            repository.deleteSaving(savingEntity)
+        }
+    }
 
     // Memperbarui tabungan yang ada
 //    fun updateSaving(savingEntity: SavingEntity) {
@@ -80,15 +68,6 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
 //            repository.updateSaving(savingEntity)
 //        }
 //    }
-
-    // Menghapus tabungan
-//    fun deleteSaving(savingEntity: SavingEntity) {
-//        viewModelScope.launch {
-//            repository.deleteSaving(savingEntity)
-//        }
-//    }
-
-    // Menyimpan transaksi baru
 
 
     // Menyimpan penarikan baru

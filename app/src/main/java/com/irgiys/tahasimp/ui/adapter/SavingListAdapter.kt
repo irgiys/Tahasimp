@@ -11,6 +11,7 @@ import com.irgiys.tahasimp.db.entity.SavingEntity
 import com.irgiys.tahasimp.ui.activity.DetailSavingActivity
 import com.irgiys.tahasimp.utils.SavingDiffCallback
 import com.irgiys.tahasimp.utils.formatCurrency
+import com.irgiys.tahasimp.utils.formatDate
 
 class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingViewHolder>(SavingDiffCallback()) {
 
@@ -29,6 +30,7 @@ class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingView
         fun bind(saving: SavingEntity) {
             with(binding) {
                 tvTitle.text = saving.title
+                tvDateCreated.text = formatDate(saving.dateCreated)
                 tvTargetSaving.text = formatCurrency(saving.target)
                 tvDailySaving.text = "${formatCurrency(saving.dailyTarget)} per hari"
                 tvDayTarget.text = "Estimasi ${saving.dayTarget.toString()} hari"

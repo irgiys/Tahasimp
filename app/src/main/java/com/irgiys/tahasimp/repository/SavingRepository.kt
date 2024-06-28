@@ -14,7 +14,7 @@ import java.util.concurrent.Executors
 
 class SavingRepository(application: Application) {
     private val savingDao: SavingDao
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+//    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     init {
         val db = SavingDatabase.getDatabase(application)
@@ -22,8 +22,6 @@ class SavingRepository(application: Application) {
     }
 
     fun getAllSavings(): Flow<List<SavingEntity>> = savingDao.getAllSavings()
-
-//    fun getSavingById(id: Int): Flow<SavingEntity> = savingDao.getSavingById(id)
 
     suspend fun insertSaving(savingEntity: SavingEntity) {
         savingDao.insertSaving(savingEntity)

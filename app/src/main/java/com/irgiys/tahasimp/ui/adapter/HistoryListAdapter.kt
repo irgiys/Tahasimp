@@ -21,7 +21,7 @@ class HistoryListAdapter :
             val isSaving = transaction.type == "saving"
             val setColor = if (isSaving) "#4CAF50" else "#F44336"
             binding.apply {
-                tvDateCreated.text = formatDate(transaction.date)// Format date as needed
+                tvDateCreated.text = formatDate(transaction.dateCreated)// Format date as needed
                 tvAmount.text =
                     if (isSaving) formatCurrency(transaction.amount) else "-" + formatCurrency(
                         transaction.amount
