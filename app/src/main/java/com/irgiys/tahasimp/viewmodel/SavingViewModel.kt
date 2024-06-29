@@ -26,6 +26,9 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
     // Mengambil semua tabungan
     val allSavings: LiveData<List<SavingEntity>> = repository.getAllSavings().asLiveData()
 
+    val allProgressSavings: LiveData<List<SavingEntity>> = repository.getAllProgressSavings().asLiveData()
+    val allCompletedSavings: LiveData<List<SavingEntity>> = repository.getAllCompletedSavings().asLiveData()
+
     // Menyimpan tabungan baru
     fun insertSaving(savingEntity: SavingEntity) {
         viewModelScope.launch {
@@ -39,6 +42,17 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun searchSavings(query: String): LiveData<List<SavingEntity>> {
+        return repository.searchSavings(query)
+    }
+
+    fun searchProgressSavings(query: String): LiveData<List<SavingEntity>> {
+        return repository.searchProgressSavings(query)
+    }
+
+    fun searchCompletedSavings(query: String): LiveData<List<SavingEntity>> {
+        return repository.searchCompletedSavings(query)
+    }
     fun loadNetSavings(savingId: Int) {
         viewModelScope.launch {
             repository.getNetSavings(savingId).collect {
@@ -55,6 +69,13 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    // Memperbarui tabungan yang ada
+    fun updateSaving(savingEntity: SavingEntity) {
+        viewModelScope.launch {
+            repository.updateSaving(savingEntity)
+        }
+    }
+
     // Menghapus tabungan
     fun deleteSaving(savingEntity: SavingEntity) {
         viewModelScope.launch {
@@ -62,12 +83,6 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    // Memperbarui tabungan yang ada
-//    fun updateSaving(savingEntity: SavingEntity) {
-//        viewModelScope.launch {
-//            repository.updateSaving(savingEntity)
-//        }
-//    }
 
 
     // Menyimpan penarikan baru

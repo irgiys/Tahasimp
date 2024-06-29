@@ -14,7 +14,7 @@ data class SavingEntity(
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "title")
     var title: String? = null,
 
     @ColumnInfo(name = "target")
@@ -28,6 +28,9 @@ data class SavingEntity(
 
     @ColumnInfo(name = "date_created")
     var dateCreated: Date = Date(),
+
+    @ColumnInfo(name = "is_completed")
+    var isCompleted: Boolean = false
 
 //    @ColumnInfo(name = "total_saving")
 //    var totalSaving: Long = 0

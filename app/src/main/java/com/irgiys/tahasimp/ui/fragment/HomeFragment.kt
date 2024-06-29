@@ -17,8 +17,9 @@ import com.irgiys.tahasimp.ui.adapter.SectionsPagerAdapter
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
     private val binding get() = _binding!!
+
+    private lateinit var sectionsPagerAdapter: SectionsPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,24 +27,47 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewPager()
+        setupSearch()
         binding.fabAdd.setOnClickListener {
             val intent = Intent(activity, AddSavingActivity::class.java)
             startActivity(intent)
         }
+    }
+    private fun setupSearch() {
+        with(binding) {
+            searchBar.setOnClickListener {
+                fabAdd.visibility = View.GONE
+            }
+            searchView.setupWithSearchBar(searchBar)
+            searchView.editText.setOnEditorActionListener { _, _, _ ->
+                val query = searchView.text.toString()
+                searchBar.setText(query)
+                searchView.hide()
+                updateSearchQuery(query)
+                false
+            }
+            searchView.editText.setOnFocusChangeListener { _, hasFocus ->
+                fabAdd.visibility = if (hasFocus) View.GONE else View.VISIBLE
+            }
+        }
+    }
+    private fun updateSearchQuery(query: String) {
+        val progressFragment = sectionsPagerAdapter.getFragment(0) as? ProgressFragment
+        progressFragment?.updateSearchQuery(query)
     }
 
     private fun setViewPager() {
         val viewPager: ViewPager2 = binding.viewPager
         val tabs: TabLayout = binding.tabs
 
-        viewPager.adapter = SectionsPagerAdapter(this)
+        sectionsPagerAdapter = SectionsPagerAdapter(this)
+        viewPager.adapter = sectionsPagerAdapter
 
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])

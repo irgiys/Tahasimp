@@ -55,8 +55,9 @@ class DetailSavingActivity : AppCompatActivity() {
                 if (netSavings < saving.target!!) {
                     val kurang = saving.target!! - netSavings
                     binding.tvSavingMinus.text = formatCurrency(kurang)
-                }else {
+                } else {
                     binding.tvSavingMinus.text = formatCurrency(0L)
+
                 }
 
             }

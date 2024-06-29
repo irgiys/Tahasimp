@@ -1,5 +1,6 @@
 package com.irgiys.tahasimp.db.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -27,8 +28,23 @@ interface SavingDao {
     @Query("SELECT * FROM saving_data ORDER BY date_created DESC")
     fun getAllSavings(): Flow<List<SavingEntity>>
 
+    @Query("SELECT * FROM saving_data WHERE is_completed = false ORDER BY date_created DESC")
+    fun getAllProgressSavings(): Flow<List<SavingEntity>>
+
+    @Query("SELECT * FROM saving_data WHERE is_completed = true ORDER BY date_created DESC")
+    fun getAllCompletedSavings(): Flow<List<SavingEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: HistoryTransactionEntity)
+
+    @Query("SELECT * FROM saving_data WHERE title LIKE :searchQuery ORDER BY date_created DESC")
+    fun searchSavings(searchQuery: String): LiveData<List<SavingEntity>>
+
+    @Query("SELECT * FROM saving_data WHERE title LIKE :searchQuery AND is_completed = false ORDER BY date_created DESC")
+    fun searchProgressSavings(searchQuery: String): LiveData<List<SavingEntity>>
+
+    @Query("SELECT * FROM saving_data WHERE title LIKE :searchQuery AND is_completed = true ORDER BY date_created DESC")
+    fun searchCompletedSavings(searchQuery: String): LiveData<List<SavingEntity>>
 
     @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
     fun getTransactionsBySavingId(savingId: Int): Flow<List<HistoryTransactionEntity>>

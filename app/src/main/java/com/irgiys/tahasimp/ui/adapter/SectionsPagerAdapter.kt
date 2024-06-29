@@ -6,23 +6,18 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.irgiys.tahasimp.ui.fragment.CompletedFragment
 import com.irgiys.tahasimp.ui.fragment.ProgressFragment
 
-class SectionsPagerAdapter(fragment: Fragment) :
-    FragmentStateAdapter(fragment) {
+class SectionsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+
+    private val fragmentsMap = mutableMapOf<Int, Fragment>()
 
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> {
-                ProgressFragment()
-            }
-            else -> {
-                CompletedFragment()
-            }
+            0 -> ProgressFragment().also { fragmentsMap[position] = it }
+            else -> CompletedFragment().also { fragmentsMap[position] = it }
         }
     }
 
-//    companion object {
-//        const val ARGS_USERNAME = "username"
-//    }
+    fun getFragment(position: Int): Fragment? = fragmentsMap[position]
 }

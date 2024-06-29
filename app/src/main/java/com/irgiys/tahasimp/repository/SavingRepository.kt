@@ -1,6 +1,7 @@
 package com.irgiys.tahasimp.repository
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.irgiys.tahasimp.db.entity.HistoryTransactionEntity
 import com.irgiys.tahasimp.db.entity.SavingEntity
 import com.irgiys.tahasimp.db.entity.SavingTransactionEntity
@@ -23,6 +24,9 @@ class SavingRepository(application: Application) {
 
     fun getAllSavings(): Flow<List<SavingEntity>> = savingDao.getAllSavings()
 
+    fun getAllProgressSavings(): Flow<List<SavingEntity>> = savingDao.getAllProgressSavings()
+    fun getAllCompletedSavings(): Flow<List<SavingEntity>> = savingDao.getAllCompletedSavings()
+
     suspend fun insertSaving(savingEntity: SavingEntity) {
         savingDao.insertSaving(savingEntity)
     }
@@ -35,6 +39,17 @@ class SavingRepository(application: Application) {
         savingDao.deleteSaving(savingEntity)
     }
 
+    fun searchSavings(query: String): LiveData<List<SavingEntity>> {
+        return savingDao.searchSavings("%$query%")
+    }
+
+    fun searchProgressSavings(query: String): LiveData<List<SavingEntity>> {
+        return savingDao.searchProgressSavings("%$query%")
+    }
+
+    fun searchCompletedSavings(query: String): LiveData<List<SavingEntity>> {
+        return savingDao.searchCompletedSavings("%$query%")
+    }
     suspend fun insertTransaction(transaction: HistoryTransactionEntity) {
         savingDao.insertTransaction(transaction)
     }

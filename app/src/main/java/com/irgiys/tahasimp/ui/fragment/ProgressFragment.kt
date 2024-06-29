@@ -33,26 +33,32 @@ class ProgressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         savingViewModel = obtainViewModel(this)
-        adapter = SavingListAdapter()
-        binding.rvSavings.adapter = adapter
-        binding.rvSavings.layoutManager = LinearLayoutManager(requireContext())
-//        binding.rvSavings.layoutManager = LinearLayoutManager(requireContext())
-//        binding.rvSavings.setHasFixedSize(true)
-//        binding.rvSavings.adapter = adapter
-//        savingViewModel.allSavings.observe(viewLifecycleOwner, Observer { savings ->
-//            if (savings != null) {
-//                adapter.setListSaving(savings)
-//            }
-//        })
-        savingViewModel.allSavings.observe(viewLifecycleOwner, Observer { savings ->
-            adapter.submitList(savings)
-        })
+        setupRecyclerView()
+        observeSavings()
 
+    }
+    private fun observeSavings() {
+        savingViewModel.allProgressSavings.observe(viewLifecycleOwner) { savings ->
+            adapter.submitList(savings)
+        }
+    }
+
+    private fun setupRecyclerView() {
+        adapter = SavingListAdapter()
+        binding.rvSavings.apply {
+            this.adapter = this@ProgressFragment.adapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+    fun updateSearchQuery(query: String) {
+        savingViewModel.searchProgressSavings(query).observe(viewLifecycleOwner) { filteredSavings ->
+            adapter.submitList(filteredSavings)
+        }
     }
 
     private fun obtainViewModel(fragment: Fragment): SavingViewModel {
         val factory = ViewModelFactory.getInstance(fragment.requireActivity().application)
-        return ViewModelProvider(fragment, factory).get(SavingViewModel::class.java)
+        return ViewModelProvider(fragment, factory)[SavingViewModel::class.java]
     }
 
 }
