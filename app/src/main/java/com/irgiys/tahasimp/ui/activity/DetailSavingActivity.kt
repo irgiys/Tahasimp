@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,11 +54,13 @@ class DetailSavingActivity : AppCompatActivity() {
                 if (netSavings < saving.target!!) {
                     val kurang = saving.target!! - netSavings
                     binding.tvSavingMinus.text = formatCurrency(kurang)
+                    saving.isCompleted = false
+                    savingViewModel.updateSaving(saving)
                 } else {
+                    saving.isCompleted = true
+                    savingViewModel.updateSaving(saving)
                     binding.tvSavingMinus.text = formatCurrency(0L)
-
                 }
-
             }
         })
 
@@ -76,7 +77,11 @@ class DetailSavingActivity : AppCompatActivity() {
                 if (isEverSaving) {
                     showInputDialog(false)
                 } else {
-                    Toast.makeText(this@DetailSavingActivity, "Nabung dulu baru bisa dikurangin", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@DetailSavingActivity,
+                        "Nabung dulu baru bisa dikurangin",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -148,22 +153,24 @@ class DetailSavingActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_update -> {
-                // Tambahkan logika untuk meng-update saving data
 //                showUpdateDialog()
                 true
             }
+
             R.id.action_delete -> {
-                // Tambahkan logika untuk menghapus saving data
                 showDeleteConfirmationDialog()
                 true
             }
+
             android.R.id.home -> {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     private fun showDeleteConfirmationDialog() {
         // Implementasikan dialog untuk konfirmasi penghapusan saving data
         AlertDialog.Builder(this)

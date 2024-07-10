@@ -1,5 +1,6 @@
 package com.irgiys.tahasimp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.irgiys.tahasimp.databinding.FragmentProgressBinding
+import com.irgiys.tahasimp.ui.activity.AddSavingActivity
 import com.irgiys.tahasimp.ui.adapter.SavingListAdapter
 import com.irgiys.tahasimp.utils.ViewModelFactory
 import com.irgiys.tahasimp.viewmodel.SavingViewModel
@@ -25,7 +27,6 @@ class ProgressFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentProgressBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,7 +36,10 @@ class ProgressFragment : Fragment() {
         savingViewModel = obtainViewModel(this)
         setupRecyclerView()
         observeSavings()
-
+        binding.fabAdd.setOnClickListener {
+            val intent = Intent(activity, AddSavingActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun observeSavings() {
         savingViewModel.allProgressSavings.observe(viewLifecycleOwner) { savings ->

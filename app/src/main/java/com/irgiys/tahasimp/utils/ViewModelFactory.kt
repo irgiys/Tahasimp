@@ -3,7 +3,6 @@ package com.irgiys.tahasimp.utils
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.irgiys.tahasimp.viewmodel.HomeViewModel
 import com.irgiys.tahasimp.viewmodel.SavingViewModel
 
 
@@ -25,9 +24,7 @@ class ViewModelFactory private constructor(private val mApplication: Application
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>):
             T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(mApplication) as T
-        } else if (modelClass.isAssignableFrom(SavingViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(SavingViewModel::class.java)) {
             return SavingViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

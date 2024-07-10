@@ -85,7 +85,6 @@ class AddSavingActivity : AppCompatActivity() {
                                 saving?.dayTarget = dayTargetInt
                             }
                             savingViewModel.insertSaving(saving!!)
-//                        finish()
                         }
                     }
                 }

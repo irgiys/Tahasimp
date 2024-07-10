@@ -47,6 +47,9 @@ interface SavingDao {
     fun searchCompletedSavings(searchQuery: String): LiveData<List<SavingEntity>>
 
     @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
+    fun getHistoryTransactions(savingId: Int): Flow<List<HistoryTransactionEntity>>
+
+    @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
     fun getTransactionsBySavingId(savingId: Int): Flow<List<HistoryTransactionEntity>>
 
     @Query("SELECT SUM(amount) FROM history_transaction WHERE saving_id = :savingId AND type = 'saving'")
@@ -54,40 +57,5 @@ interface SavingDao {
 
     @Query("SELECT SUM(amount) FROM history_transaction WHERE saving_id = :savingId AND type = 'withdrawal'")
     fun getTotalWithdrawals(savingId: Int): Flow<Long?>
-
-    @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
-    fun getHistoryTransactions(savingId: Int): Flow<List<HistoryTransactionEntity>>
-
-//    @Query("SELECT * FROM saving_transaction WHERE saving_id = :savingId")
-//    fun getTransactionsForSaving(savingId: Int): Flow<List<SavingTransactionEntity>>
-//
-//    @Query("SELECT * FROM withdrawal_transaction WHERE saving_id = :savingId")
-//    fun getWithdrawalsForSaving(savingId: Int): Flow<List<WithdrawalTransactionEntity>>
-
-//    @Transaction
-//    suspend fun insertTransactionAndUpdateTotalSaving(transactionEntity: SavingTransactionEntity) {
-//        insertSavingTransaction(transactionEntity)
-//        updateTotalSaving(transactionEntity.savingId)
-//    }
-//    @Transaction
-//    suspend fun insertWithdrawalAndUpdateTotalSaving(withdrawalEntity: WithdrawalTransactionEntity) {
-//        insertWithdrawalTransaction(withdrawalEntity)
-//        updateTotalSaving(withdrawalEntity.savingId)
-//    }
-
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertSavingTransaction(transaction: SavingTransactionEntity)
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertWithdrawalTransaction(transaction: WithdrawalTransactionEntity)
-
-//    @Query("UPDATE saving_data SET total_saving = (SELECT COALESCE(SUM(amount), 0) FROM saving_transaction WHERE saving_id = :savingId) - (SELECT COALESCE(SUM(amount), 0) FROM withdrawal_transaction WHERE saving_id = :savingId) WHERE id = :savingId")
-//    suspend fun updateTotalSaving(savingId: Int)
-
-//    @Query("SELECT COALESCE(SUM(amount), 0) FROM saving_transaction WHERE saving_id = :savingId")
-//    suspend fun getTotalDepositsForSaving(savingId: Int): Long
-
-//    @Query("SELECT COALESCE(SUM(amount), 0) FROM withdrawal_transaction WHERE saving_id = :savingId")
-//    suspend fun getTotalWithdrawalsForSaving(savingId: Int): Long
 
 }

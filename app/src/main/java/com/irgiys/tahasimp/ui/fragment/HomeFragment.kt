@@ -1,6 +1,6 @@
 package com.irgiys.tahasimp.ui.fragment
 
-import android.content.Intent
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +11,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.irgiys.tahasimp.R
 import com.irgiys.tahasimp.databinding.FragmentHomeBinding
-import com.irgiys.tahasimp.ui.activity.AddSavingActivity
 import com.irgiys.tahasimp.ui.adapter.SectionsPagerAdapter
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -34,16 +32,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setViewPager()
         setupSearch()
-        binding.fabAdd.setOnClickListener {
-            val intent = Intent(activity, AddSavingActivity::class.java)
-            startActivity(intent)
-        }
+
     }
     private fun setupSearch() {
         with(binding) {
-            searchBar.setOnClickListener {
-                fabAdd.visibility = View.GONE
-            }
             searchView.setupWithSearchBar(searchBar)
             searchView.editText.setOnEditorActionListener { _, _, _ ->
                 val query = searchView.text.toString()
@@ -52,14 +44,13 @@ class HomeFragment : Fragment() {
                 updateSearchQuery(query)
                 false
             }
-            searchView.editText.setOnFocusChangeListener { _, hasFocus ->
-                fabAdd.visibility = if (hasFocus) View.GONE else View.VISIBLE
-            }
         }
     }
     private fun updateSearchQuery(query: String) {
         val progressFragment = sectionsPagerAdapter.getFragment(0) as? ProgressFragment
+        val completedFragment = sectionsPagerAdapter.getFragment(1) as? CompletedFragment
         progressFragment?.updateSearchQuery(query)
+        completedFragment?.updateSearchQuery(query)
     }
 
     private fun setViewPager() {

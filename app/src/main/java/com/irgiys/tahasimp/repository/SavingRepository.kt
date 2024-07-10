@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.irgiys.tahasimp.db.entity.HistoryTransactionEntity
 import com.irgiys.tahasimp.db.entity.SavingEntity
-import com.irgiys.tahasimp.db.entity.SavingTransactionEntity
-import com.irgiys.tahasimp.db.entity.WithdrawalTransactionEntity
 import com.irgiys.tahasimp.db.room.SavingDao
 import com.irgiys.tahasimp.db.room.SavingDatabase
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +13,6 @@ import java.util.concurrent.Executors
 
 class SavingRepository(application: Application) {
     private val savingDao: SavingDao
-//    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     init {
         val db = SavingDatabase.getDatabase(application)
@@ -66,19 +63,4 @@ class SavingRepository(application: Application) {
     fun getHistoryTransactions(savingId: Int): Flow<List<HistoryTransactionEntity>> {
         return savingDao.getHistoryTransactions(savingId)
     }
-
-
-//    fun getTransactionsForSaving(savingId: Int): Flow<List<SavingTransactionEntity>> =
-//        savingDao.getTransactionsForSaving(savingId)
-//
-//    fun getWithdrawalsForSaving(savingId: Int): Flow<List<WithdrawalTransactionEntity>> =
-//        savingDao.getWithdrawalsForSaving(savingId)
-
-//    suspend fun insertTransactionAndUpdateTotalSaving(transactionEntity: SavingTransactionEntity) {
-//        savingDao.insertTransactionAndUpdateTotalSaving(transactionEntity)
-//    }
-//
-//    suspend fun insertWithdrawalAndUpdateTotalSaving(withdrawalEntity: WithdrawalTransactionEntity) {
-//        savingDao.insertWithdrawalAndUpdateTotalSaving(withdrawalEntity)
-//    }
 }

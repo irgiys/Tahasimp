@@ -8,10 +8,11 @@ Tabungan Harian Simpel 📒
 - [x] Show saving Transaction
 - [x] Error handling if withdrawal more than saving
 - [x] Delete saving data
+- [x] Show all completed savings
+- [x] Search Saving
 - [ ] Update saving data
-- [ ] Show all completed savings
 - [ ] Counting the day
-- [ ] Search Saving
 - [ ] Splash Screen
 - [ ] About us
 - [ ] Dashboard
+- [ ] Theming

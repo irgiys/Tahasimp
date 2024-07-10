@@ -8,14 +8,12 @@ import androidx.room.TypeConverters
 import com.irgiys.tahasimp.db.entity.HistoryTransactionEntity
 
 import com.irgiys.tahasimp.db.entity.SavingEntity
-import com.irgiys.tahasimp.db.entity.SavingTransactionEntity
-import com.irgiys.tahasimp.db.entity.WithdrawalTransactionEntity
 import com.irgiys.tahasimp.utils.DateConverter
 
 @Database(entities = [SavingEntity::class, HistoryTransactionEntity::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class SavingDatabase : RoomDatabase() {
-    abstract fun savingDao(): SavingDao
+        abstract fun savingDao(): SavingDao
 
     companion object {
         @Volatile
