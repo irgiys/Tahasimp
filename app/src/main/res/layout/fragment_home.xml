@@ -20,8 +20,9 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="24dp"
-            android:hint="cari" />
+            android:paddingHorizontal="16dp"
+            android:hint="Cari tabungan"
+            />
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.search.SearchView

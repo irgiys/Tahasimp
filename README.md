@@ -10,9 +10,9 @@ Tabungan Harian Simpel 📒
 - [x] Delete saving data
 - [x] Show all completed savings
 - [x] Search Saving
-- [ ] Update saving data
+- [x] About us
 - [ ] Counting the day
 - [ ] Splash Screen
-- [ ] About us
+- [ ] Update saving data
 - [ ] Dashboard
 - [ ] Theming

@@ -6,17 +6,133 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.AboutUsFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+
+    <ImageView
+        android:id="@+id/iv_about_us_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tv_about_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Ini adalah aplikasi manajemen tabungan dan transaksi yang dirancang untuk membantu Anda melacak aktivitas tabungan Anda. Anda dapat menetapkan target tabungan, target harian, melihat riwayat transaksi, dan menghitung tabungan bersih Anda dengan mudah."
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/iv_about_us_logo"
+        android:justificationMode="inter_word"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="140dp" />
+
+    <TextView
+        android:id="@+id/teams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Kelompok"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_about_description" />
+
+    <TextView
+        android:id="@+id/anggun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Anggun Lisnawati"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_label"
+        app:layout_constraintTop_toBottomOf="@+id/teams" />
+
+    <TextView
+        android:id="@+id/nim_anggun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:text="2113510"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_link"
+        app:layout_constraintTop_toBottomOf="@+id/teams" />
+
+    <TextView
+        android:id="@+id/ari"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Ari Supriatna"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_label"
+        app:layout_constraintTop_toBottomOf="@+id/anggun" />
+
+    <TextView
+        android:id="@+id/nim_ari"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:text="2113510"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_link"
+        app:layout_constraintTop_toBottomOf="@+id/anggun" />
+
+ <TextView
+        android:id="@+id/irgi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Irgiyansyah"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_label"
+        app:layout_constraintTop_toBottomOf="@+id/ari" />
+
+    <TextView
+        android:id="@+id/nim_irgi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:text="2113510"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_link"
+        app:layout_constraintTop_toBottomOf="@+id/ari" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_about_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Version: 1.0.0"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/irgi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
