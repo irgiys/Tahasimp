@@ -47,6 +47,7 @@ class DetailSavingActivity : AppCompatActivity() {
         val daysSinceCreated = calculateDaysSince(saving.dateCreated)
         binding.tvSinceCreated.text = "Tabungan ini sudah berjalan selama $daysSinceCreated hari"
 
+        supportActionBar?.title = "Detail tabungan"
         // Tambahkan kode berikut
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -75,7 +76,7 @@ class DetailSavingActivity : AppCompatActivity() {
         binding.apply {
             tvTitle.text = saving.title
             tvTargetSaving.text = formatCurrency(saving.target)
-            tvDailySaving.text = formatCurrency(saving.dailyTarget) + " / hari"
+            tvDailySaving.text = formatCurrency(saving.dailyTarget) + " per hari"
             tvDayTarget.text = "${saving.dayTarget.toString()} hari"
             tvDateCreated.text = formatDate(saving.dateCreated)
             btnAddSaving.setOnClickListener {
@@ -160,10 +161,6 @@ class DetailSavingActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_update -> {
-//                showUpdateDialog()
-                true
-            }
 
             R.id.action_delete -> {
                 showDeleteConfirmationDialog()
@@ -180,7 +177,6 @@ class DetailSavingActivity : AppCompatActivity() {
     }
 
     private fun showDeleteConfirmationDialog() {
-        // Implementasikan dialog untuk konfirmasi penghapusan saving data
         AlertDialog.Builder(this)
             .setTitle("Delete Saving")
             .setMessage("Yakin hapus tabungan ini?")

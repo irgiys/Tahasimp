@@ -31,26 +31,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewPager()
-        setupSearch()
-
-    }
-    private fun setupSearch() {
-        with(binding) {
-            searchView.setupWithSearchBar(searchBar)
-            searchView.editText.setOnEditorActionListener { _, _, _ ->
-                val query = searchView.text.toString()
-                searchBar.setText(query)
-                searchView.hide()
-                updateSearchQuery(query)
-                false
-            }
-        }
-    }
-    private fun updateSearchQuery(query: String) {
-        val progressFragment = sectionsPagerAdapter.getFragment(0) as? ProgressFragment
-        val completedFragment = sectionsPagerAdapter.getFragment(1) as? CompletedFragment
-        progressFragment?.updateSearchQuery(query)
-        completedFragment?.updateSearchQuery(query)
     }
 
     private fun setViewPager() {

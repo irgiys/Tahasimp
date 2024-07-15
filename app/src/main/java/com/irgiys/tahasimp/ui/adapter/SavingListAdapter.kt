@@ -12,8 +12,10 @@ import com.irgiys.tahasimp.ui.activity.DetailSavingActivity
 import com.irgiys.tahasimp.utils.SavingDiffCallback
 import com.irgiys.tahasimp.utils.formatCurrency
 import com.irgiys.tahasimp.utils.formatDate
+import java.util.Locale
 
 class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingViewHolder>(SavingDiffCallback()) {
+    private var fullList: List<SavingEntity> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavingViewHolder {
         val binding = SavingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,6 +24,11 @@ class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingView
 
     override fun onBindViewHolder(holder: SavingViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    fun submitFullList(list: List<SavingEntity>) {
+        fullList = list
+        submitList(ArrayList(list))
     }
 
     inner class SavingViewHolder(private val binding: SavingItemBinding) :
@@ -41,5 +48,17 @@ class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingView
                 }
             }
         }
+    }
+
+    fun filter(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            fullList
+        } else {
+            val lowerCaseQuery = query.lowercase(Locale.getDefault())
+            fullList.filter {
+                it.title?.lowercase(Locale.getDefault())?.contains(lowerCaseQuery) == true
+            }
+        }
+        submitList(filteredList)
     }
 }

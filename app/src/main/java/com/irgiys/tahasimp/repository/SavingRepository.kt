@@ -36,18 +36,6 @@ class SavingRepository(application: Application) {
         savingDao.deleteSaving(savingEntity)
     }
 
-    fun searchSavings(query: String): LiveData<List<SavingEntity>> {
-        return savingDao.searchSavings("%$query%")
-    }
-
-    fun searchProgressSavings(query: String): LiveData<List<SavingEntity>> {
-        return savingDao.searchProgressSavings("%$query%")
-    }
-
-    fun searchCompletedSavings(query: String): LiveData<List<SavingEntity>> {
-        return savingDao.searchCompletedSavings("%$query%")
-    }
-
     suspend fun insertTransaction(transaction: HistoryTransactionEntity) {
         savingDao.insertTransaction(transaction)
     }

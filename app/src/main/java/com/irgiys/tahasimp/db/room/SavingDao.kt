@@ -34,15 +34,6 @@ interface SavingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: HistoryTransactionEntity)
 
-    @Query("SELECT * FROM saving_data WHERE title LIKE :searchQuery ORDER BY date_created DESC")
-    fun searchSavings(searchQuery: String): LiveData<List<SavingEntity>>
-
-    @Query("SELECT * FROM saving_data WHERE title LIKE :searchQuery AND is_completed = false ORDER BY date_created DESC")
-    fun searchProgressSavings(searchQuery: String): LiveData<List<SavingEntity>>
-
-    @Query("SELECT * FROM saving_data WHERE title LIKE :searchQuery AND is_completed = true ORDER BY date_created DESC")
-    fun searchCompletedSavings(searchQuery: String): LiveData<List<SavingEntity>>
-
     @Query("SELECT * FROM history_transaction WHERE saving_id = :savingId ORDER BY date_created DESC")
     fun getHistoryTransactions(savingId: Int): Flow<List<HistoryTransactionEntity>>
 
