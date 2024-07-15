@@ -1,5 +1,6 @@
 package com.irgiys.tahasimp.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,6 +19,7 @@ import com.irgiys.tahasimp.db.entity.SavingEntity
 import com.irgiys.tahasimp.ui.adapter.HistoryListAdapter
 import com.irgiys.tahasimp.utils.NumberTextWatcher
 import com.irgiys.tahasimp.utils.ViewModelFactory
+import com.irgiys.tahasimp.utils.calculateDaysSince
 import com.irgiys.tahasimp.utils.formatCurrency
 import com.irgiys.tahasimp.utils.formatDate
 import com.irgiys.tahasimp.utils.parseStringToLong
@@ -34,12 +36,16 @@ class DetailSavingActivity : AppCompatActivity() {
 
     private var currentSavings: Long = 0L
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _activityDetailSavingBinding = ActivityDetailSavingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         savingViewModel = obtainViewModel(this@DetailSavingActivity)
         saving = intent.getParcelableExtra(EXTRA_SAVING)!!
+
+        val daysSinceCreated = calculateDaysSince(saving.dateCreated)
+        binding.tvSinceCreated.text = "Tabungan ini sudah berjalan selama $daysSinceCreated hari"
 
         // Tambahkan kode berikut
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -51,6 +57,8 @@ class DetailSavingActivity : AppCompatActivity() {
                 isEverSaving = true
                 currentSavings = netSavings
                 binding.tvAccumulatedSaving.text = formatCurrency(netSavings)
+                binding.tvAccumulatedSaving.setTextColor(android.graphics.Color.parseColor("#4CAF50"))
+                binding.tvSavingMinus.setTextColor(android.graphics.Color.parseColor("#F44336"))
                 if (netSavings < saving.target!!) {
                     val kurang = saving.target!! - netSavings
                     binding.tvSavingMinus.text = formatCurrency(kurang)
@@ -67,7 +75,7 @@ class DetailSavingActivity : AppCompatActivity() {
         binding.apply {
             tvTitle.text = saving.title
             tvTargetSaving.text = formatCurrency(saving.target)
-            tvDailySaving.text = formatCurrency(saving.dailyTarget)
+            tvDailySaving.text = formatCurrency(saving.dailyTarget) + " / hari"
             tvDayTarget.text = "${saving.dayTarget.toString()} hari"
             tvDateCreated.text = formatDate(saving.dateCreated)
             btnAddSaving.setOnClickListener {
@@ -110,7 +118,7 @@ class DetailSavingActivity : AppCompatActivity() {
         val dialogBuilder = AlertDialog.Builder(this)
             .setTitle(title)
             .setView(dialogView)
-            .setPositiveButton("Simpan", null) // Set to null to override the default behavior
+            .setPositiveButton("Simpan", null)
             .setNegativeButton("Batal") { dialog, _ ->
                 dialog.dismiss()
             }

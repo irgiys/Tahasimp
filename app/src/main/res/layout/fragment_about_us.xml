@@ -15,18 +15,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="120dp" />
+
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Tahasimp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/iv_about_us_logo"
+        android:justificationMode="inter_word"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/tv_about_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="Ini adalah aplikasi manajemen tabungan dan transaksi yang dirancang untuk membantu Anda melacak aktivitas tabungan Anda. Anda dapat menetapkan target tabungan, target harian, melihat riwayat transaksi, dan menghitung tabungan bersih Anda dengan mudah."
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/iv_about_us_logo"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name"
         android:justificationMode="inter_word"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -49,7 +64,7 @@
         android:id="@+id/teams"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="Kelompok"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/guideline_label"

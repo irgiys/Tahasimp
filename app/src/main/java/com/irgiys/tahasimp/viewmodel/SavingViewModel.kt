@@ -8,10 +8,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.irgiys.tahasimp.db.entity.HistoryTransactionEntity
 import com.irgiys.tahasimp.db.entity.SavingEntity
-
-import com.irgiys.tahasimp.repository.SavingRepository
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import com.irgiys.tahasimp.repository.SavingRepository
 
 
 class SavingViewModel(application: Application) : AndroidViewModel(application) {
@@ -84,11 +82,4 @@ class SavingViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-
-    // Menyimpan penarikan baru
-//    fun insertWithdrawal(withdrawalEntity: WithdrawalTransactionEntity) {
-//        viewModelScope.launch {
-//            repository.insertWithdrawal(withdrawalEntity)
-//        }
-//    }
 }

@@ -2,14 +2,14 @@ package com.irgiys.tahasimp.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import com.irgiys.tahasimp.db.entity.HistoryTransactionEntity
 import com.irgiys.tahasimp.db.entity.SavingEntity
 import com.irgiys.tahasimp.db.room.SavingDao
 import com.irgiys.tahasimp.db.room.SavingDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import kotlinx.coroutines.runBlocking
 
 class SavingRepository(application: Application) {
     private val savingDao: SavingDao
@@ -47,6 +47,7 @@ class SavingRepository(application: Application) {
     fun searchCompletedSavings(query: String): LiveData<List<SavingEntity>> {
         return savingDao.searchCompletedSavings("%$query%")
     }
+
     suspend fun insertTransaction(transaction: HistoryTransactionEntity) {
         savingDao.insertTransaction(transaction)
     }
@@ -63,4 +64,5 @@ class SavingRepository(application: Application) {
     fun getHistoryTransactions(savingId: Int): Flow<List<HistoryTransactionEntity>> {
         return savingDao.getHistoryTransactions(savingId)
     }
+
 }

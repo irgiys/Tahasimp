@@ -22,9 +22,6 @@ interface SavingDao {
     @Delete
     suspend fun deleteSaving(saving: SavingEntity)
 
-    @Query("SELECT * FROM saving_data WHERE id = :id")
-    fun getSavingById(id: Int): Flow<SavingEntity>
-
     @Query("SELECT * FROM saving_data ORDER BY date_created DESC")
     fun getAllSavings(): Flow<List<SavingEntity>>
 

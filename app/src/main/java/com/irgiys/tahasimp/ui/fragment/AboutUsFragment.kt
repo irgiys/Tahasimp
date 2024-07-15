@@ -21,7 +21,6 @@ class AboutUsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentAboutUsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root

@@ -75,7 +75,7 @@ class AddSavingActivity : AppCompatActivity() {
 
                             binding.btnSave.isEnabled = false
                             Handler(Looper.getMainLooper()).postDelayed({
-                                binding.btnSave.isEnabled = true
+                                finish()
                             }, 5000)
 
                             saving.let {
