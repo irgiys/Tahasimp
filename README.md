@@ -11,8 +11,7 @@ Tabungan Harian Simpel 📒
 - [x] Show all completed savings
 - [x] Search Saving
 - [x] About us
-- [ ] Counting the day
-- [ ] Splash Screen
 - [ ] Update saving data
+- [ ] Splash Screen
 - [ ] Dashboard
 - [ ] Theming

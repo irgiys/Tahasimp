@@ -19,6 +19,7 @@ import com.irgiys.tahasimp.databinding.FragmentProgressBinding
 import com.irgiys.tahasimp.ui.activity.AddSavingActivity
 import com.irgiys.tahasimp.ui.adapter.SavingListAdapter
 import com.irgiys.tahasimp.utils.ViewModelFactory
+import com.irgiys.tahasimp.utils.formatCurrency
 import com.irgiys.tahasimp.viewmodel.SavingViewModel
 
 
@@ -28,6 +29,8 @@ class ProgressFragment : Fragment() {
 
     private lateinit var savingViewModel: SavingViewModel
     private lateinit var adapter: SavingListAdapter
+
+    private var currentQuery: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,15 +70,30 @@ class ProgressFragment : Fragment() {
                     return false
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
+                    currentQuery = newText
                     adapter.filter(newText ?: "")
                     return true
                 }
             })
         }
+
     }
+
     private fun observeSavings() {
         savingViewModel.allProgressSavings.observe(viewLifecycleOwner) { savings ->
             adapter.submitFullList(savings)
+            currentQuery?.let {
+                adapter.filter(it)
+            }
+            if (savings.isEmpty()) {
+                binding.tvEmptySaving.visibility = View.VISIBLE
+                binding.rvSavings.visibility = View.GONE
+                binding.searchView.visibility = View.GONE
+            } else {
+                binding.tvEmptySaving.visibility = View.GONE
+                binding.rvSavings.visibility = View.VISIBLE
+                binding.searchView.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -88,6 +106,7 @@ class ProgressFragment : Fragment() {
     }
 
 
+
     private fun obtainViewModel(fragment: Fragment): SavingViewModel {
         val factory = ViewModelFactory.getInstance(fragment.requireActivity().application)
         return ViewModelProvider(fragment, factory)[SavingViewModel::class.java]
@@ -95,7 +114,9 @@ class ProgressFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.searchView.setQuery("", false)
+        currentQuery?.let {
+            binding.searchView.setQuery(it, false)
+        }
         binding.searchView.clearFocus()
     }
 

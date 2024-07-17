@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,19 +25,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_view"
-        tools:listitem="@layout/saving_item" />
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/saving_item"
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
+        />
+
+    <TextView
+        android:id="@+id/tv_empty_saving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Belum ada tabungan yang dibuat"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginEnd="24dp"
-        app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/red_500"
         android:layout_marginBottom="20dp"
         android:contentDescription="add"
-        app:srcCompat="@drawable/ic_add" />
+        android:text="Buat tabungan"
+        app:icon="@drawable/ic_add"
+        android:textColor="@color/black"
+        app:iconTint="@android:color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

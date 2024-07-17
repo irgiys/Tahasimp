@@ -1,9 +1,11 @@
 package com.irgiys.tahasimp.ui.activity
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -32,9 +34,15 @@ class AddSavingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _activityAddSavingBinding = ActivityAddSavingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         savingViewModel = obtainViewModel(this@AddSavingActivity)
+
+        val typedValue = TypedValue()
+        val theme = theme
+        theme.resolveAttribute(com.google.android.material.R.attr.colorPrimarySurface, typedValue, true)
+        val colorPrimarySurface = typedValue.data
+
         supportActionBar?.title = "Tambah tabungan"
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(colorPrimarySurface))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         saving = SavingEntity()

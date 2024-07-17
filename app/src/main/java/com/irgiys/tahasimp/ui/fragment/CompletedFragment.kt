@@ -28,6 +28,8 @@ class CompletedFragment : Fragment() {
     private lateinit var savingViewModel: SavingViewModel
     private lateinit var adapter: SavingListAdapter
 
+    private var currentQuery: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +47,7 @@ class CompletedFragment : Fragment() {
 
         binding.searchView.apply {
             isIconified = false
-            queryHint = "Cari tabungan yang sudah selesai..."
+            queryHint = "Cari tabungan yang sudah tercapai..."
 
             val searchPlate = findViewById<View>(androidx.appcompat.R.id.search_plate)
             searchPlate?.setBackgroundColor(Color.TRANSPARENT)
@@ -62,6 +64,7 @@ class CompletedFragment : Fragment() {
                     return false
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
+                    currentQuery = newText
                     adapter.filter(newText ?: "")
                     return true
                 }
@@ -72,7 +75,18 @@ class CompletedFragment : Fragment() {
     private fun observeSavings() {
         savingViewModel.allCompletedSavings.observe(viewLifecycleOwner) { savings ->
             adapter.submitFullList(savings)
-        }
+            currentQuery?.let {
+                adapter.filter(it)
+            }
+            if (savings.isEmpty()) {
+                binding.tvEmptySaving.visibility = View.VISIBLE
+                binding.rvSavings.visibility = View.GONE
+                binding.searchView.visibility = View.GONE
+            } else {
+                binding.tvEmptySaving.visibility = View.GONE
+                binding.rvSavings.visibility = View.VISIBLE
+                binding.searchView.visibility = View.VISIBLE
+            }        }
     }
 
     private fun setupRecyclerView() {
@@ -90,7 +104,9 @@ class CompletedFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.searchView.setQuery("", false)
+        currentQuery?.let {
+            binding.searchView.setQuery(it, false)
+        }
         binding.searchView.clearFocus()
     }
 

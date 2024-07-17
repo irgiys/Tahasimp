@@ -53,9 +53,12 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="10dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_marginVertical="10dp"
+                app:dividerColor="@color/yellow_50"
+                />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,9 +97,12 @@
             </LinearLayout>
 
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="10dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_marginVertical="10dp"
+                app:dividerColor="@color/yellow_50"
+                />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,10 +139,14 @@
                     android:text="28 Juni 2024"
                     android:textAlignment="textEnd" />
             </LinearLayout>
+
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="10dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_marginVertical="10dp"
+                app:dividerColor="@color/yellow_50"
+                />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,9 +162,8 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/tv_history_transaction"
+        android:id="@+id/cv_is_completed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
@@ -163,7 +172,33 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_saving_info">
+        app:layout_constraintTop_toBottomOf="@id/cv_saving_info"
+        android:backgroundTint="@color/red_500"
+        android:visibility="gone"
+        >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:text="Tabungan ini sudah tercapai 🥳 🎉"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_history_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_is_completed">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -213,7 +248,7 @@
         android:layout_height="0dp"
         android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_history_transaction"
+        app:layout_constraintTop_toBottomOf="@id/cv_history_transaction"
         tools:listitem="@layout/transaction_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

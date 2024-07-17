@@ -4,7 +4,21 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="custom_grey">#383838</color>
+    <color name="teal_900">#0D6E6E</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!--    my custom color here-->
+    <color name="teal_700">#FF018786</color>
+    <color name="yellow_100">#FFD8A0</color>
+    <color name="yellow_50">#D0FFE7C3</color>
+    <color name="yellow_300">#F4B860</color>
+
+    <color name="yellow_dark">#313028</color>
+
+    <color name="grey_800">#1F1E23</color>
+    <color name="grey_700">#32373B</color>
+    <color name="red_200">#D9D7D6</color>
+    <color name="red_300">#F4D6CC</color>
+    <color name="red_500">#F1B09D</color>
 </resources>

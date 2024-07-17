@@ -31,6 +31,7 @@ class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingView
         submitList(ArrayList(list))
     }
 
+
     inner class SavingViewHolder(private val binding: SavingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
@@ -41,6 +42,7 @@ class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingView
                 tvTargetSaving.text = formatCurrency(saving.target)
                 tvDailySaving.text = "${formatCurrency(saving.dailyTarget)} per hari"
                 tvDayTarget.text = "Estimasi ${saving.dayTarget.toString()} hari"
+
                 cvItemSaving.setOnClickListener {
                     val intent = Intent(it.context, DetailSavingActivity::class.java)
                     intent.putExtra(DetailSavingActivity.EXTRA_SAVING, saving)
@@ -61,4 +63,5 @@ class SavingListAdapter : ListAdapter<SavingEntity, SavingListAdapter.SavingView
         }
         submitList(filteredList)
     }
+
 }

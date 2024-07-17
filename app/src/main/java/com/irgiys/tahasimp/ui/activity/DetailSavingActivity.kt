@@ -1,10 +1,13 @@
 package com.irgiys.tahasimp.ui.activity
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +51,12 @@ class DetailSavingActivity : AppCompatActivity() {
         binding.tvSinceCreated.text = "Tabungan ini sudah berjalan selama $daysSinceCreated hari"
 
         supportActionBar?.title = "Detail tabungan"
-        // Tambahkan kode berikut
+
+        val typedValue = TypedValue()
+        val theme = theme
+        theme.resolveAttribute(com.google.android.material.R.attr.colorPrimarySurface, typedValue, true)
+        val colorPrimarySurface = typedValue.data
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(colorPrimarySurface))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         var isEverSaving = false
@@ -70,6 +78,7 @@ class DetailSavingActivity : AppCompatActivity() {
                     savingViewModel.updateSaving(saving)
                     binding.tvSavingMinus.text = formatCurrency(0L)
                 }
+                binding.cvIsCompleted.visibility = if(saving.isCompleted) View.VISIBLE else View.GONE
             }
         })
 
@@ -79,6 +88,7 @@ class DetailSavingActivity : AppCompatActivity() {
             tvDailySaving.text = formatCurrency(saving.dailyTarget) + " per hari"
             tvDayTarget.text = "${saving.dayTarget.toString()} hari"
             tvDateCreated.text = formatDate(saving.dateCreated)
+
             btnAddSaving.setOnClickListener {
                 showInputDialog(true)
             }
@@ -105,6 +115,41 @@ class DetailSavingActivity : AppCompatActivity() {
         savingViewModel.loadHistoryTransactions(saving.id)
 
     }
+    private fun showUpdateDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_update_saving, null)
+        val edtTitle = dialogView.findViewById<TextInputEditText>(R.id.edt_title)
+        val edtTarget = dialogView.findViewById<TextInputEditText>(R.id.edt_target)
+        val edtDayTarget = dialogView.findViewById<TextInputEditText>(R.id.edt_day_target)
+
+
+        edtTarget.addTextChangedListener(NumberTextWatcher(edtTarget))
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setTitle("Update Tabungan")
+            .setView(dialogView)
+            .setPositiveButton("Perbarui", null)
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+
+//        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+//            val title = edtTitle.text.toString()
+//            val target = edtTarget.text.toString()
+//            val dayTarget = edtDayTarget.text.toString()
+//
+//            if (title.isEmpty()) {
+//                edtTitle.error = "Kolom tidak boleh kosong"
+//            } else if (target == null || target % 500 != 0L) {
+//                edtTarget.error = "Inputkan nilai rupiah dengan benar"
+//            } else {
+//                Toast.makeText(this, "Tabungan berhasil diperbarui", Toast.LENGTH_SHORT).show()
+//                alertDialog.dismiss()
+//            }
+//        }
+    }
+
 
     private fun showInputDialog(isSaving: Boolean) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_input_saving, null)
@@ -161,7 +206,10 @@ class DetailSavingActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-
+            R.id.action_update -> {
+                showUpdateDialog()
+                true
+            }
             R.id.action_delete -> {
                 showDeleteConfirmationDialog()
                 true
@@ -181,8 +229,9 @@ class DetailSavingActivity : AppCompatActivity() {
             .setTitle("Delete Saving")
             .setMessage("Yakin hapus tabungan ini?")
             .setPositiveButton("Hapus") { _, _ ->
+                Toast.makeText(this, "Tabungan ${saving.title} berhasil dihapus", Toast.LENGTH_SHORT).show()
                 savingViewModel.deleteSaving(saving)
-                finish() // Tutup activity setelah menghapus saving
+                finish()
             }
             .setNegativeButton("Batal") { dialog, _ ->
                 dialog.dismiss()

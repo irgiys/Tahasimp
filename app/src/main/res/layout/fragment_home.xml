@@ -12,16 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|enterAlways">
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:backgroundTint="?attr/colorPrimaryVariant"
+        >
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
             app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorColor="?attr/colorSecondary"
-            app:tabSelectedTextColor="?attr/colorAccent"
-            app:tabTextColor="?attr/colorSecondary" />
+            android:backgroundTint="?attr/colorPrimaryVariant"
+            />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
